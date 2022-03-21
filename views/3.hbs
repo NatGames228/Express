@@ -1,0 +1,45 @@
+<form action="/3/create" method="POST">
+  <h2>Добавление и удаление</h2>
+
+  <div class="input-field">
+    <input type="text" name="first">
+    <label>1</label>
+  </div>
+
+
+  <button type="submit" class="btn">Добавить</button>
+
+{{#if library.length}}
+<ul>
+  {{#each library}}
+  <li class="todo">
+    <form action="/3/del" method="POST">
+      <label>
+        {{#if completed}}
+        <input type="checkbox" checked name="completed">
+        <span class="completed">{{title}}</span>
+        {{else}}
+        <input type="checkbox" name="completed">
+        <span>{{title}}</span>
+        {{/if}}
+
+        <input type="hidden" value="{{_id}}" name="id">
+
+        <button class="btn btn-small btn_del" type="submit">Удалить</button>
+      </label>
+    </form>
+  </li>
+  {{/each}}
+</ul>
+{{else}}
+<p>No library!</p>
+{{/if}}
+
+<script>
+  const btn_del = document.querySelectorAll('.btn_del');
+  btn_del.forEach((del, i) => {
+    del.addEventListener('click', (e) => {
+      del.parentElement.remove()
+    })
+  })
+</script>
